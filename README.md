@@ -1,5 +1,5 @@
-# Macropad
-Dynamic Menu Builder in Autohotkey Version 2
+# Macropad.ahk
+Autohotkey Version 2
 
 I wrote Macropad to more easily build and edit Windows 32 menus and nested submenus in Autohotkey. When I started using Autohotkey, I often found myself going into the editor to either write a shortcut only to discover that it had already been written, look up a shortcuts I had forgotten, or finding a shortcut I thought I had written, but had previously changed. This menu map script provides a visual representation of your shortcuts in one place. You can use the mouse or the keyboard to navigate through these menus, and even call specific menus with hotkeys or hotstrings. I use this to store URLs, programs I open, Autohotkey scripts I edit, the currently running autohotkey scripts, common folder locations, windows settings, snippets of text I often paste, and navigating to specific spotify playlists, to name a few. 
 
