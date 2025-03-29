@@ -1,3 +1,7 @@
+#Macropad
+
+This is the Macropad script, which I wrote to more easily build and edit Windows 32 menus and nested submenus. Starting out in AutoHotkey, I often found myself going into the editor to either write a shortcut only to discover that it had already been written, look up a shortcuts I had forgotten, or finding a shortcut I thought I had written, but had previously changed. This menu map script provides a visual representation of your shortcuts in one place. You can use the mouse or the keyboard to navigate through these menus, and even call specific menus with hotkeys or hotstrings. I use this to store URLs, programs I open, Autohotkey scripts I edit, the currently running autohotkey scripts, common folder locations, windows settings, snippets of text I often paste, and navigating to specific spotify playlists, to name a few. 
+
 
 I like the syntax of Macropad because you can put the title of an item, the fuction for it to run, the icon, and the hotkey all in one line, separated by commas. I'll show you an example of a submenu and then explain it, which will make the main menu easier to understand at the end. Here is a sample submenu:
 
