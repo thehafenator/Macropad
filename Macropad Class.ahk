@@ -108,20 +108,9 @@ class Macropad {
     static WM_RBUTTONUP := 0x205
     static editAction := ""
     static excludedScripts := [ ; Here you can list the scripts you don't want to see in your 'Running Ahk Scripts' if you want to hide them. I've commented them out for now so you can see everything, but feel free to add your own here. 
-        ; "DimScreen.ahk",
-        ; "Toggle Between Monitors.ahk",
-        ; "launcher.ahk",
-        ; "Simple Timer.ahk",
-        ; "AHK Scripts.ahk",  
-        ; "AHK Scripts - EXE.ahk",
-        ; "DimScreen.exe",
-        ; "Toggle Between Monitors.exe",
-        ; "launcher.exe",
-        ; "Simple Timer.exe",
-        ; "AHK Scripts.exe", 
-        ; "AHK Scripts - EXE.exe",
-        ; "AutoHotkeyUX.exe",
-        
+    "launcher.ahk",
+    "AutoHotkeyUX.exe",
+    "Ahk2Exe.exe", 
     ]
     static commands := Map(
         "Open", 65300,
@@ -526,6 +515,7 @@ static GetRunningAHKScripts() {
                 continue
             
             scriptPath := ""
+            scriptName := ""
             foundName := false
             
             ; Check if the process is an AutoHotkey interpreter (v1 or v2)
@@ -561,9 +551,26 @@ static GetRunningAHKScripts() {
             
             ; Handle compiled .exe scripts (not interpreters)
             if (!foundName && InStr(processPath, ".exe")) {
-                ; Use the processPath only if it's not an AHK interpreter
+                ; For compiled scripts, extract just the filename for display
                 SplitPath(processPath, &scriptName)
                 scriptPath := processPath
+                
+                ; Try to get a better name from the window title
+                if (RegExMatch(fullTitle, "^(.*?)(?:\s*-\s*.*)?$", &match)) {
+                    ; If the title has a name, use it
+                    if (match[1] && match[1] != processPath) {
+                        ; If title is just a filename without path, use that
+                        if (!InStr(match[1], "\")) {
+                            scriptName := match[1]
+                        } else {
+                            ; Otherwise extract the filename from the path in the title
+                            SplitPath(match[1], &titleName)
+                            if (titleName)
+                                scriptName := titleName
+                        }
+                    }
+                }
+                
                 foundName := true
             }
             
@@ -571,6 +578,13 @@ static GetRunningAHKScripts() {
             if (!foundName) {
                 scriptName := "AHK_Script_" pid
                 scriptPath := processPath
+            }
+            
+            ; Ensure the filename has the correct extension
+            if (!InStr(scriptName, ".")) {
+                SplitPath(scriptPath, , , &ext)
+                if (ext)
+                    scriptName := scriptName "." ext
             }
             
             ; Exclude unwanted scripts
@@ -673,7 +687,6 @@ static GetScriptState(hwnd) {
             script := entry.script
     
             scriptSubMenu := Menu()
-; Change this line in RefreshMenu:
            
             scriptSubMenu.Add()
             
