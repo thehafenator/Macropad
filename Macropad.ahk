@@ -133,7 +133,7 @@ scriptItems := [
     ["Mom Birthday", (*) => SendAsPaste("00/00/2000"), "", ".momb"],
     ["Mom Email", (*) => SendAsPaste("mom@gmail.com"), "", ".fhe", ".mome"],
     ["Dad Phone", (*) => SendAsPaste("1234567"), "", ".dadp", ".dhp", ".dkhp"],
-    ["Dad Email (Gmail)", (*) => SendAsPaste("dkhafen@gmail.com"), "", ".dade",],
+    ["Dad Email (Gmail)", (*) => SendAsPaste("dad@gmail.com"), "", ".dade",],
     ["Dad Birthday", (*) => SendAsPaste("00/00/2000"), "", ".dadb",],
     ]
     this.AddMenuItems("others", othersItems, true, true, true) ; hotkeys, hotstrings, icons
