@@ -5,7 +5,7 @@ I wrote Macropad to more easily build and edit Windows 32 menus and nested subme
 
 
 I like the syntax of Macropad because you can put the title of an item, the fuction for it to run, the icon, and the hotkey all in one line, separated by commas. I'll show you an example of a submenu and then explain it, which will make the main menu easier to understand at the end. Here is a sample submenu:
-
+```
         websitesItems := [
             ["Google Calendar", (*) => Run('"https://calendar.google.com/calendar/u/0/r"'), "calendar.ico", ".cal", "!+c"],
             ["Gmail", (*) => Run('"https://mail.google.com/mail/u/0/#inbox"'), "gmail.ico", ".gm", "!+g", "^!g"],
@@ -17,7 +17,7 @@ I like the syntax of Macropad because you can put the title of an item, the fuct
      	    ["Other Websites", this.GetMenu("otherwebsites")],  ; 
         ]
         this.AddMenuItems("websites", websitesItems, true, true, true) ; hotkeys, hotstrings, icons
-
+```
 Array structure - between the first and last []
 - Look at the Array name itself. "websites" is the name of the whole submenu, and each line (an item) represents 
   individual menu items within that submenu. The plural "Items" refers to all of the items in the array together.
@@ -25,6 +25,7 @@ Array structure - between the first and last []
 - We'll call this specific array from inside the main menu, so when you open the "Websites" option in the main menu, it will open this submenu. More on this in the main menu section.
 
 Structure of a single menu item (each section is divided by a comma). Example:
+```
 ["Google Calendar", (*) => Run('"https://calendar.google.com/calendar/u/0/r"'), "calendar.ico", ".cal", "!+c"]
 
 1. Item Name ["Google Calendar", ...]
@@ -64,8 +65,10 @@ Structure of a single menu item (each section is divided by a comma). Example:
      - Standard modifiers (!#+^) and function keys are supported
 
 5. Make sure to add a comma at the end of each line, except the last one in the array. If you get errors with the code after an edit, this is the most likely cause. The next most likely cause is the use of (*) => with GetMenu. See below for more details. 
-
+```
 Adding websites to the menu:
+
+```
 Main menu:
         mainItems := [
         ["URL", this.GetMenu("websites"), "chrome.ico", "!+u",], 
@@ -80,15 +83,19 @@ Main menu:
         ]
         defaultMenu := this.AddMenuItems("default", mainItems, true, true, true) ; hotkeys, hotstrings, icons
         this.menus["default"] := defaultMenu
-
+```
 This is a great place to explain the syntax of the main menu, as it is a bit different than the submenus. Note how it is similar to the submenus.
 Key differences:
 1. Note the difference in how the defaultMenu is defined at the end of the array with the last two lines. This is how the script knows which part of the menu to show when it calls Macropad.Showmenu()
 2. I would probably say that most items in the main menu will be calling submenus, and the syntax is slightly different:
 This is our Google Calendar example:
+```
 ["Google Calendar", (*) => Run('"https://calendar.google.com/calendar/u/0/r"'), "calendar.ico", ".cal", "!+c"],
+```
 and our main menu item which calls the websites submenu:
-["URL", this.GetMenu("websites"), "chrome.ico", "!+u",], 
+```
+["URL", this.GetMenu("websites"), "chrome.ico", "!+u",],
+```
 Note the disappearance of (*) =>> from the syntax. Instaed, we use this.getmenu("websites"). If the array was programItems, we would use this.getmenu("programs").
 If you notice syntax errors after editing the code, commas and (*) =>> are the most likely culprits.
 
@@ -96,10 +103,14 @@ A few other notes:
 Separators:
 placing "true," (without quotations, but with a comma) in the array will add a separator (a horizontal line) between menu items in both the main and submenus. This can be helpful to visually distinguish between groups of menu items. 
 Turning off showing hotkeys, hotstrings, and icons in the menu:
-- Example: 
-this.AddMenuItems("websites", websitesItems, true, true, true) ; hotkeys, hotstrings, icons 
+- Example:
+```
+this.AddMenuItems("websites", websitesItems, true, true, true) ; hotkeys, hotstrings, icons
+```
 If I wanted to not show the shortcut keys in this specific the menu, I would change the first true to false:
+```
 - this.AddMenuItems("websites", websitesItems, false, true, true) ; hotkeys, hotstrings, icons
+```
 This could be helpful if you have a lot of hotkeys and want to make the menu cleaner. You can also do this for hotstrings or to hide icons for a cleaner look. It's very easy to mass replace true, true, true in an editor with false, false, flase if you want to do this for all menus at the same time. I personally like to show the hotkeys in case I forget what they are, however, if I am on a new computer with different paths to programs and the icons aren't showing, I'll turn them off. 
 
  I demonstrated this script briefly in the first few minutes of this video here:
